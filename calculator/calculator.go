@@ -6,5 +6,10 @@ type Calculator struct {
 }
 
 func (c *Calculator) Start() {
-	panic("implement me")
+	go func() {
+		for x := range c.Input {
+			c.Output <- x * x
+		}
+		close(c.Output)
+	}()
 }
